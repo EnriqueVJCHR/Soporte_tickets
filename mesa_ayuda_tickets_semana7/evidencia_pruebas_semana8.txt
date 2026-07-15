@@ -1,0 +1,15 @@
+COMANDO:
+python -m unittest discover -s tests -p "test_*.py" -v
+
+SALIDA:
+test_crear_y_listar_catalogo_valido (test_catalogos.CatalogoServiceTest.test_crear_y_listar_catalogo_valido) ... ok
+test_normaliza_espacios_en_nombre (test_catalogos.CatalogoServiceTest.test_normaliza_espacios_en_nombre) ... ok
+test_rechaza_catalogo_duplicado (test_catalogos.CatalogoServiceTest.test_rechaza_catalogo_duplicado) ... ok
+test_rechaza_nombre_demasiado_corto (test_catalogos.CatalogoServiceTest.test_rechaza_nombre_demasiado_corto) ... ok
+test_rechaza_tipo_no_permitido (test_catalogos.CatalogoServiceTest.test_rechaza_tipo_no_permitido) ... ok
+test_validador_rechaza_campos_obligatorios_vacios (test_catalogos.CatalogoServiceTest.test_validador_rechaza_campos_obligatorios_vacios) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK

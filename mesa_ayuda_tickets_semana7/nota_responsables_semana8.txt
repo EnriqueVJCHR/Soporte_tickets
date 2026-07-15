@@ -1,0 +1,3 @@
+Responsables usados en el entregable Semana 8:
+- Enrique Velez Jaime: contexto, estrategia y generacion inicial de pruebas.
+- Christian Patricio Perez Landin: validacion, ejecucion, depuracion y documentacion.

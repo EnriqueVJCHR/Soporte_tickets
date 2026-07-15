@@ -1,0 +1,23 @@
+COMANDO:
+python -m unittest discover -s tests -p "test_*.py" -v
+
+SALIDA:
+test_crear_y_listar_catalogo_valido (test_catalogos.CatalogoServiceTest.test_crear_y_listar_catalogo_valido) ... ok
+test_normaliza_espacios_en_nombre (test_catalogos.CatalogoServiceTest.test_normaliza_espacios_en_nombre) ... ok
+test_rechaza_catalogo_duplicado (test_catalogos.CatalogoServiceTest.test_rechaza_catalogo_duplicado) ... ok
+test_rechaza_nombre_demasiado_corto (test_catalogos.CatalogoServiceTest.test_rechaza_nombre_demasiado_corto) ... ok
+test_rechaza_tipo_no_permitido (test_catalogos.CatalogoServiceTest.test_rechaza_tipo_no_permitido) ... ok
+test_validador_rechaza_campos_obligatorios_vacios (test_catalogos.CatalogoServiceTest.test_validador_rechaza_campos_obligatorios_vacios) ... ok
+test_crear_y_listar_usuario_valido (test_usuarios.UsuarioServiceTest.test_crear_y_listar_usuario_valido) ... ok
+test_filtra_usuarios_por_rol (test_usuarios.UsuarioServiceTest.test_filtra_usuarios_por_rol) ... ok
+test_obtener_por_usuario (test_usuarios.UsuarioServiceTest.test_obtener_por_usuario) ... ok
+test_rechaza_correo_invalido (test_usuarios.UsuarioServiceTest.test_rechaza_correo_invalido) ... ok
+test_rechaza_rol_no_permitido (test_usuarios.UsuarioServiceTest.test_rechaza_rol_no_permitido) ... ok
+test_rechaza_usuario_duplicado (test_usuarios.UsuarioServiceTest.test_rechaza_usuario_duplicado) ... ok
+test_validador_rechaza_campos_obligatorios_vacios (test_usuarios.UsuarioServiceTest.test_validador_rechaza_campos_obligatorios_vacios) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.006s
+
+OK
+

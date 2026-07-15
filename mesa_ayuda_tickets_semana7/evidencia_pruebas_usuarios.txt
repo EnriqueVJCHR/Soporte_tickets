@@ -1,0 +1,20 @@
+COMANDO:
+python tests/prueba_manual_usuarios.py
+
+SALIDA:
+Prueba 1: registrar usuarios validos
+OK: usuario creado con id 1 - alopez (solicitante)
+OK: usuario creado con id 2 - lperez (tecnico)
+OK: usuario creado con id 3 - madmin (administrador)
+
+Prueba 2: listar usuarios registrados
+- Ana Lopez | alopez | solicitante
+- Luis Perez | lperez | tecnico
+- Mario Admin | madmin | administrador
+
+Prueba 3: validar duplicado
+Resultado esperado: Ya existe un usuario con el mismo correo o nombre de usuario.
+
+Prueba 4: validar rol no permitido
+Resultado esperado: Rol no permitido. Use: administrador, solicitante, tecnico.
+

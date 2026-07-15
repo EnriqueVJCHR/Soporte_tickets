@@ -1,0 +1,34 @@
+EVIDENCIA DE ERROR Y DEPURACION - SEMANA 8
+
+Modulo probado: Catalogos
+Requerimiento relacionado: RF-38 - El sistema debe validar que no se registren elementos duplicados.
+
+1. Error controlado observado
+Durante las pruebas se valido el comportamiento cuando se intenta registrar dos veces el mismo catalogo:
+
+Entrada:
+- tipo: estado
+- nombre: Nuevo
+- descripcion: Ticket recien creado
+
+Segunda entrada repetida:
+- tipo: estado
+- nombre: Nuevo
+- descripcion: Duplicado
+
+Resultado observado:
+ValueError: Ya existe un catalogo de tipo 'estado' con el nombre 'Nuevo'.
+
+2. Analisis del error
+Este error no indica una falla del sistema, sino que confirma que la validacion de duplicados funciona correctamente. La tabla catalogos tiene una restriccion UNIQUE(tipo, nombre), y el repositorio transforma el error de SQLite en un ValueError entendible para el usuario/desarrollador.
+
+3. Archivos involucrados
+- modules/catalogos/repository.py: captura sqlite3.IntegrityError y devuelve ValueError.
+- modules/catalogos/service.py: envia los datos validados al repositorio.
+- tests/test_catalogos.py: prueba test_rechaza_catalogo_duplicado.
+
+4. Accion de depuracion
+Se reviso que el error fuera esperado, que el mensaje fuera claro y que la prueba usara assertRaises(ValueError). No se modifico la logica principal porque el comportamiento era correcto.
+
+5. Evidencia de prueba automatizada
+La prueba test_rechaza_catalogo_duplicado paso correctamente porque el sistema rechazo el duplicado como se esperaba.
