@@ -1,0 +1,11 @@
+﻿Flujo principal Semana 12
+Entrada: usuario, categoria, prioridad y descripcion del ticket
+Validacion: datos y referencias aceptadas
+Procesamiento: folio generado y estado inicial asignado
+Persistencia: ticket guardado en SQLite
+Salida:
+- Folio: TCK-20260802142800945669-D4522F
+- Solicitante: Ana Solicitante
+- Categoria: Hardware
+- Prioridad: Alta
+- Estado: Nuevo

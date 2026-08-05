@@ -138,3 +138,82 @@ Ran 13 tests
 
 OK
 ```
+
+## Semana 12 - Desarrollo incremental II e integracion del flujo principal
+
+Se agrego el modulo `tickets` para completar el incremento prioritario planeado en Semana 11 y conectar los modulos existentes en un flujo funcional preliminar.
+
+### Modulo implementado
+
+```text
+modules/
+|-- tickets/
+|   |-- repository.py
+|   |-- service.py
+|   |-- validators.py
+tests/
+|-- test_tickets.py
+|-- prueba_manual_tickets.py
+```
+
+### Requerimientos relacionados
+
+- RF-09 a RF-13: registrar ticket, validar datos, generar folio, fecha y estado inicial.
+- RF-16: consultar detalle del ticket.
+- RF-04, RF-06, RF-07, RF-08: usuarios y roles usados para identificar al solicitante.
+- RF-37 y RF-38: catalogos usados para categoria y prioridad.
+
+### Flujo principal integrado
+
+```text
+Entrada del usuario
+-> Validacion de usuario, categoria, prioridad y descripcion
+-> Procesamiento del ticket
+-> Persistencia en SQLite
+-> Salida con folio, solicitante, categoria, prioridad y estado Nuevo
+```
+
+### Cambios tecnicos
+
+- `config/database.py`: agrega tabla `tickets` e indices para folio y solicitante.
+- `modules/tickets/validators.py`: valida campos obligatorios, identificadores y descripcion minima.
+- `modules/tickets/repository.py`: guarda, lista y consulta tickets en SQLite.
+- `modules/tickets/service.py`: coordina validaciones, genera folio unico y asigna estado `Nuevo`.
+- `main.py`: demuestra el flujo principal integrado.
+
+### Ejecutar prueba manual del flujo principal
+
+```bash
+python tests/prueba_manual_tickets.py
+```
+
+### Ejecutar todas las pruebas
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
+Resultado esperado despues de Semana 12:
+
+```text
+Ran 21 tests
+
+OK
+```
+
+### Errores controlados
+
+- Descripcion vacia o demasiado corta.
+- Identificadores no numericos o menores a cero.
+- Solicitante inexistente o inactivo.
+- Categoria inexistente o inactiva.
+- Prioridad inexistente o inactiva.
+- Error de integridad al intentar guardar referencias invalidas.
+
+### Pendientes para cierre tecnico
+
+- Autenticacion completa: RF-01 a RF-03.
+- Permisos por rol: RF-05, RF-25 y RF-42.
+- Asignacion de tecnico y transiciones de estado: RF-21 a RF-24, RF-45 y RF-46.
+- Seguimiento, solucion y cierre: RF-28, RF-30 a RF-32 y RF-34.
+- Interfaz web basica integrada: INT-01.
