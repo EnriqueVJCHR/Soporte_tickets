@@ -1,0 +1,38 @@
+﻿{% extends "base.html" %}
+{% block heading %}Panel de control{% endblock %}
+{% block content %}
+<section class="stats-grid">
+  <article class="stat"><span>{{ total_tickets }}</span><p>Tickets registrados</p></article>
+  <article class="stat"><span>{{ tickets_abiertos }}</span><p>Tickets abiertos</p></article>
+  <article class="stat"><span>{{ total_usuarios }}</span><p>Usuarios</p></article>
+  <article class="stat"><span>{{ total_catalogos }}</span><p>Catalogos</p></article>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <div>
+      <h2>Tickets recientes</h2>
+      <p>Vista rapida para ensayar la demostracion final.</p>
+    </div>
+    <a class="button" href="{{ url_for('vista_tickets') }}">Crear ticket</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Folio</th><th>Solicitante</th><th>Categoria</th><th>Prioridad</th><th>Estado</th></tr></thead>
+      <tbody>
+      {% for ticket in tickets_recientes %}
+        <tr>
+          <td><a href="{{ url_for('detalle_ticket', folio=ticket.folio) }}">{{ ticket.folio }}</a></td>
+          <td>{{ ticket.solicitante }}</td>
+          <td>{{ ticket.categoria }}</td>
+          <td>{{ ticket.prioridad }}</td>
+          <td><span class="badge">{{ ticket.estado }}</span></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="empty">Aun no hay tickets registrados.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

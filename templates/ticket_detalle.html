@@ -1,0 +1,49 @@
+﻿{% extends "base.html" %}
+{% block heading %}Detalle de ticket{% endblock %}
+{% block content %}
+<section class="grid-two">
+  <article class="panel ticket-card">
+    <p class="eyebrow">{{ ticket.folio }}</p>
+    <h2>{{ ticket.categoria }} / {{ ticket.prioridad }}</h2>
+    <p class="description">{{ ticket.descripcion }}</p>
+    <dl>
+      <div><dt>Solicitante</dt><dd>{{ ticket.solicitante }}</dd></div>
+      <div><dt>Estado</dt><dd><span class="badge">{{ ticket.estado }}</span></dd></div>
+      <div><dt>Fecha</dt><dd>{{ ticket.created_at }}</dd></div>
+    </dl>
+  </article>
+
+  <form class="panel form" method="post" action="{{ url_for('actualizar_ticket', folio=ticket.folio) }}">
+    <h2>Actualizar ticket</h2>
+    <label>Categoria
+      <select name="categoria_id" required>
+        {% for item in categorias %}
+          <option value="{{ item.id }}" {% if item.id == ticket.categoria_id %}selected{% endif %}>{{ item.nombre }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Prioridad
+      <select name="prioridad_id" required>
+        {% for item in prioridades %}
+          <option value="{{ item.id }}" {% if item.id == ticket.prioridad_id %}selected{% endif %}>{{ item.nombre }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Estado
+      <select name="estado" required>
+        {% for estado in estados %}
+          <option value="{{ estado }}" {% if estado == ticket.estado %}selected{% endif %}>{{ estado }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Descripcion
+      <textarea name="descripcion" rows="4" required>{{ ticket.descripcion }}</textarea>
+    </label>
+    <div class="actions">
+      <button class="button" type="submit">Actualizar</button>
+      <button class="button ghost" type="submit" form="delete-form">Eliminar</button>
+    </div>
+  </form>
+</section>
+<form id="delete-form" method="post" action="{{ url_for('eliminar_ticket', folio=ticket.folio) }}"></form>
+{% endblock %}

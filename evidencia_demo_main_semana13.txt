@@ -1,0 +1,28 @@
+﻿Insertando catalogos iniciales...
+OK: categoria - Hardware
+OK: categoria - Software
+OK: prioridad - Alta
+OK: prioridad - Media
+OK: estado - Nuevo
+OK: area - Laboratorio
+OK: equipo - Computadora
+
+Catalogos registrados:
+- 6: area | Laboratorio | Equipos ubicados en laboratorio | activo=1
+- 1: categoria | Hardware | Fallas fisicas en equipos | activo=1
+- 2: categoria | Software | Problemas con programas o sistema operativo | activo=1
+- 7: equipo | Computadora | Equipo de computo de escritorio o portatil | activo=1
+- 5: estado | Nuevo | Ticket registrado sin asignacion | activo=1
+- 3: prioridad | Alta | Incidencia que requiere atencion inmediata | activo=1
+- 8: prioridad | Baja | Atencion normal | activo=1
+- 4: prioridad | Media | Incidencia importante sin bloqueo total | activo=1
+
+Flujo principal Semana 12: registro y consulta de ticket
+Entrada: datos validos del solicitante y del ticket
+Validacion: usuario, categoria y prioridad existentes
+Procesamiento: folio generado y estado Nuevo
+Persistencia: registro guardado en SQLite
+Salida: TCK-20260809080340153783-1FC088 | Ana Solicitante | Hardware | Alta | Nuevo
+
+Prueba de duplicado de catalogo:
+Resultado esperado: Ya existe un catalogo de tipo 'categoria' con el nombre 'Hardware'.

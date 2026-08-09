@@ -1,0 +1,37 @@
+﻿{% extends "base.html" %}
+{% block heading %}Catalogos{% endblock %}
+{% block content %}
+<section class="grid-two">
+  <form class="panel form" method="post">
+    <h2>Nuevo catalogo</h2>
+    <label>Tipo
+      <select name="tipo" required>
+        <option value="categoria">categoria</option>
+        <option value="prioridad">prioridad</option>
+        <option value="area">area</option>
+        <option value="estado">estado</option>
+        <option value="equipo">equipo</option>
+      </select>
+    </label>
+    <label>Nombre<input name="nombre" required placeholder="Hardware"></label>
+    <label>Descripcion<textarea name="descripcion" rows="3" placeholder="Descripcion breve"></textarea></label>
+    <button class="button" type="submit">Guardar catalogo</button>
+  </form>
+
+  <section class="panel">
+    <h2>Catalogos registrados</h2>
+    <div class="table-wrap compact">
+      <table>
+        <thead><tr><th>Tipo</th><th>Nombre</th><th>Descripcion</th></tr></thead>
+        <tbody>
+        {% for item in catalogos %}
+          <tr><td><span class="badge">{{ item.tipo }}</span></td><td>{{ item.nombre }}</td><td>{{ item.descripcion }}</td></tr>
+        {% else %}
+          <tr><td colspan="3" class="empty">No hay catalogos.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+{% endblock %}

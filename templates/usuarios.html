@@ -1,0 +1,36 @@
+﻿{% extends "base.html" %}
+{% block heading %}Usuarios{% endblock %}
+{% block content %}
+<section class="grid-two">
+  <form class="panel form" method="post">
+    <h2>Nuevo usuario</h2>
+    <label>Nombre<input name="nombre" required placeholder="Ana Solicitante"></label>
+    <label>Correo<input name="correo" type="email" required placeholder="ana@empresa.com"></label>
+    <label>Usuario<input name="usuario" required placeholder="asolicitante"></label>
+    <label>Rol
+      <select name="rol" required>
+        <option value="solicitante">solicitante</option>
+        <option value="tecnico">tecnico</option>
+        <option value="administrador">administrador</option>
+      </select>
+    </label>
+    <button class="button" type="submit">Guardar usuario</button>
+  </form>
+
+  <section class="panel">
+    <h2>Usuarios registrados</h2>
+    <div class="table-wrap compact">
+      <table>
+        <thead><tr><th>Nombre</th><th>Usuario</th><th>Correo</th><th>Rol</th></tr></thead>
+        <tbody>
+        {% for usuario in usuarios %}
+          <tr><td>{{ usuario.nombre }}</td><td>{{ usuario.usuario }}</td><td>{{ usuario.correo }}</td><td><span class="badge">{{ usuario.rol }}</span></td></tr>
+        {% else %}
+          <tr><td colspan="4" class="empty">No hay usuarios.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+{% endblock %}

@@ -57,6 +57,21 @@ class TicketRepositoryMemoria:
                 return dict(ticket)
         return None
 
+    def actualizar(self, folio, categoria_id, prioridad_id, descripcion, estado):
+        for ticket in self.tickets:
+            if ticket["folio"] == folio:
+                ticket["categoria_id"] = categoria_id
+                ticket["prioridad_id"] = prioridad_id
+                ticket["descripcion"] = descripcion
+                ticket["estado"] = estado
+                return 1
+        return 0
+
+    def eliminar(self, folio):
+        total_antes = len(self.tickets)
+        self.tickets = [ticket for ticket in self.tickets if ticket["folio"] != folio]
+        return 1 if len(self.tickets) < total_antes else 0
+
     def existe_usuario_activo(self, usuario_id):
         return usuario_id in self.usuarios
 
@@ -101,6 +116,38 @@ class TicketServiceTest(unittest.TestCase):
 
         self.assertNotEqual(primero["folio"], segundo["folio"])
 
+    def test_actualizar_ticket_cambia_estado_y_descripcion(self):
+        ticket = self.service.crear(
+            1,
+            1,
+            2,
+            "El mouse del laboratorio no responde correctamente.",
+        )
+
+        actualizado = self.service.actualizar(
+            ticket["folio"],
+            1,
+            2,
+            "El mouse fue revisado y sigue fallando.",
+            "En proceso",
+        )
+
+        self.assertEqual(actualizado["estado"], "En proceso")
+        self.assertEqual(actualizado["descripcion"], "El mouse fue revisado y sigue fallando.")
+
+    def test_eliminar_ticket_lo_retira_de_la_lista(self):
+        ticket = self.service.crear(
+            1,
+            1,
+            2,
+            "El proyector del aula no muestra imagen.",
+        )
+
+        resultado = self.service.eliminar(ticket["folio"])
+
+        self.assertTrue(resultado)
+        self.assertIsNone(self.service.obtener_por_folio(ticket["folio"]))
+
     def test_rechaza_descripcion_vacia(self):
         with self.assertRaises(ValueError) as contexto:
             self.service.crear(1, 1, 2, "")
@@ -124,6 +171,14 @@ class TicketServiceTest(unittest.TestCase):
             self.service.crear(1, 99, 2, "La impresora no responde correctamente.")
 
         self.assertIn("categoria", str(contexto.exception).lower())
+
+    def test_rechaza_estado_no_permitido_al_actualizar(self):
+        ticket = self.service.crear(1, 1, 2, "El monitor no muestra imagen.")
+
+        with self.assertRaises(ValueError) as contexto:
+            self.service.actualizar(ticket["folio"], 1, 2, "El monitor no muestra imagen.", "Cancelado")
+
+        self.assertIn("Estado no permitido", str(contexto.exception))
 
     def test_validador_rechaza_identificadores_invalidos(self):
         with self.assertRaises(ValueError) as contexto:

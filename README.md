@@ -1,219 +1,210 @@
-# Mesa de Ayuda y Tickets de Mantenimiento - Semana 7
+﻿# Mesa de Ayuda y Tickets de Mantenimiento de Equipos
 
-Proyecto académico para la práctica de codificación inicial por módulos con apoyo de Codex.
+Version final candidata - Semana 13
 
-## Objetivo
+Proyecto academico para la materia Desarrollo de Utilerias y Manejadores.
 
-Desarrollar la estructura inicial de una utilería para un sistema de mesa de ayuda y tickets de mantenimiento de equipos, implementando primero el módulo de Catálogos.
+## Equipo
 
-## Primer módulo implementado
+- Christian Patricio Perez Landin
+- Enrique Velez Jaime
 
-El primer módulo implementado es `catalogos`, responsable de administrar datos base del sistema:
+## Objetivo del sistema
 
-- Categorías
-- Prioridades
-- Áreas
-- Estados
-- Equipos
+Desarrollar una utileria modular para una mesa de ayuda que permita administrar datos base, usuarios/roles y registrar tickets de mantenimiento de equipos con persistencia en SQLite.
 
-Estos datos serán utilizados posteriormente por el módulo de Tickets para clasificar y registrar incidencias.
+## Alcance final congelado
 
-## Persistencia
-
-Se usa SQLite porque el sistema requiere conservar información después de cerrar el programa. La base de datos se crea en `data/mesa_ayuda.db`.
-
-## Ejecutar prueba manual
-
-Desde Visual Studio Code o una terminal:
-
-```bash
-python main.py
-```
-
-El programa:
-
-1. Crea la base de datos si no existe.
-2. Inserta catálogos iniciales.
-3. Lista los catálogos registrados.
-4. Intenta insertar un duplicado para demostrar la validación de RF-38.
-
-## Estructura
+Semana 13 congela el alcance. No se agregan funcionalidades grandes nuevas. La version candidata demuestra el flujo principal minimo:
 
 ```text
-mesa_ayuda_tickets_semana7/
-|-- main.py
-|-- config/
-|   |-- database.py
-|-- data/
-|-- modules/
-|   |-- catalogos/
-|   |   |-- repository.py
-|   |   |-- service.py
-|   |   |-- validators.py
-|-- tests/
-|   |-- prueba_manual_catalogos.py
-|-- README.md
+Entrada de datos
+-> Validacion
+-> Procesamiento
+-> Persistencia SQLite
+-> Salida verificable
 ```
 
-
-
-## Semana 8 - Pruebas unitarias
-
-Se agregaron pruebas unitarias para el modulo `catalogos`, validando RF-37 y RF-38.
-
-Para ejecutar las pruebas desde esta misma carpeta del proyecto:
-
-```bash
-python -m unittest discover -s tests -p "test_*.py" -v
-```
-
-Archivos agregados para Semana 8:
-
-- `tests/test_catalogos.py`
-- `tests/evidencia_depuracion_comentada.py`
-- `evidencia_pruebas_semana8.txt`
-- `evidencia_error_depuracion_semana8.txt`
-- `PROMPTS_OTRAS_IAS.md`
-- `evidencias/evidencia_pruebas_unitarias_windows.png`
-- `evidencias/evidencia_error_duplicado_windows.png`
-
-Como ahora Semana 8 esta dentro de esta misma carpeta, el commit se hace aqui:
-
-```bash
-git status
-git add .
-git commit -m "Agrega pruebas y evidencias semana 8"
-```
-
-## Segundo modulo implementado - Usuarios y roles
-
-Para fortalecer el avance del segundo parcial se agrego el modulo `usuarios`.
-Este modulo permite registrar y consultar usuarios con rol, preparando el camino
-para autenticacion, permisos y asignacion de tickets.
-
-Roles usados en codigo:
-
-- `solicitante`
-- `tecnico`
-- `administrador`
-
-En la documentacion, el rol `administrador` representa al administrador/supervisor.
-
-Archivos agregados:
+## Modulos incluidos
 
 ```text
+config/
+|-- database.py
 modules/
+|-- catalogos/
+|   |-- repository.py
+|   |-- service.py
+|   |-- validators.py
 |-- usuarios/
 |   |-- repository.py
 |   |-- service.py
 |   |-- validators.py
-tests/
-|-- test_usuarios.py
-|-- prueba_manual_usuarios.py
-```
-
-Requerimientos relacionados:
-
-- RF-04: El sistema debe manejar roles de solicitante, tecnico y administrador/supervisor.
-- RF-06: El administrador/supervisor debe poder registrar nuevos usuarios.
-- RF-07: El sistema debe evitar registrar usuarios duplicados.
-- RF-08: El administrador/supervisor debe poder consultar usuarios registrados.
-
-Ejecutar prueba manual del modulo:
-
-```bash
-python tests/prueba_manual_usuarios.py
-```
-
-Ejecutar todas las pruebas:
-
-```bash
-python -m unittest discover -s tests -p "test_*.py" -v
-```
-
-Resultado esperado:
-
-```text
-Ran 13 tests
-
-OK
-```
-
-## Semana 12 - Desarrollo incremental II e integracion del flujo principal
-
-Se agrego el modulo `tickets` para completar el incremento prioritario planeado en Semana 11 y conectar los modulos existentes en un flujo funcional preliminar.
-
-### Modulo implementado
-
-```text
-modules/
 |-- tickets/
 |   |-- repository.py
 |   |-- service.py
 |   |-- validators.py
 tests/
+|-- test_catalogos.py
+|-- test_usuarios.py
 |-- test_tickets.py
+|-- test_flujo_principal_semana13.py
+|-- prueba_manual_catalogos.py
+|-- prueba_manual_usuarios.py
 |-- prueba_manual_tickets.py
 ```
 
-### Requerimientos relacionados
+## Persistencia
 
-- RF-09 a RF-13: registrar ticket, validar datos, generar folio, fecha y estado inicial.
-- RF-16: consultar detalle del ticket.
-- RF-04, RF-06, RF-07, RF-08: usuarios y roles usados para identificar al solicitante.
-- RF-37 y RF-38: catalogos usados para categoria y prioridad.
-
-### Flujo principal integrado
+Se usa SQLite. La base de datos se crea en:
 
 ```text
-Entrada del usuario
--> Validacion de usuario, categoria, prioridad y descripcion
--> Procesamiento del ticket
--> Persistencia en SQLite
--> Salida con folio, solicitante, categoria, prioridad y estado Nuevo
+data/mesa_ayuda.db
 ```
 
-### Cambios tecnicos
+Tablas principales:
 
-- `config/database.py`: agrega tabla `tickets` e indices para folio y solicitante.
-- `modules/tickets/validators.py`: valida campos obligatorios, identificadores y descripcion minima.
-- `modules/tickets/repository.py`: guarda, lista y consulta tickets en SQLite.
-- `modules/tickets/service.py`: coordina validaciones, genera folio unico y asigna estado `Nuevo`.
-- `main.py`: demuestra el flujo principal integrado.
+- `catalogos`
+- `roles`
+- `usuarios`
+- `tickets`
 
-### Ejecutar prueba manual del flujo principal
+## Requisitos
+
+- Windows 11 o sistema compatible.
+- Python 3.10 o superior.
+- No requiere instalar librerias externas para ejecutar pruebas basicas.
+
+## Instalacion
+
+1. Extraer el ZIP del proyecto.
+2. Abrir la carpeta `mesa_ayuda_tickets_semana7` en Visual Studio Code.
+3. Abrir una terminal en la raiz del proyecto.
+4. Verificar Python:
+
+```bash
+python --version
+```
+
+## Ejecucion principal
+
+```bash
+python main.py
+```
+
+El programa prepara catalogos, crea/consulta un usuario solicitante, registra un ticket y muestra folio, solicitante, categoria, prioridad y estado.
+
+## Prueba manual del flujo principal
 
 ```bash
 python tests/prueba_manual_tickets.py
 ```
 
-### Ejecutar todas las pruebas
+Salida esperada:
+
+```text
+Flujo principal Semana 12
+Entrada: usuario, categoria, prioridad y descripcion del ticket
+Validacion: datos y referencias aceptadas
+Procesamiento: folio generado y estado inicial asignado
+Persistencia: ticket guardado en SQLite
+Salida:
+- Folio: TCK-...
+- Solicitante: Ana Solicitante
+- Categoria: Hardware
+- Prioridad: Alta
+- Estado: Nuevo
+```
+
+## Pruebas finales Semana 13
 
 ```bash
 python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
-Resultado esperado despues de Semana 12:
+Resultado final esperado:
 
 ```text
-Ran 21 tests
+Ran 23 tests
 
 OK
 ```
 
-### Errores controlados
+## Requerimientos cubiertos
 
-- Descripcion vacia o demasiado corta.
-- Identificadores no numericos o menores a cero.
-- Solicitante inexistente o inactivo.
-- Categoria inexistente o inactiva.
-- Prioridad inexistente o inactiva.
-- Error de integridad al intentar guardar referencias invalidas.
+- RF-04: Manejar roles.
+- RF-06: Registrar usuarios.
+- RF-07: Evitar usuarios duplicados.
+- RF-08: Consultar usuarios.
+- RF-09 a RF-13: Registrar ticket, validar datos, generar folio, fecha y estado inicial.
+- RF-16: Consultar detalle del ticket.
+- RF-37: Administrar catalogos.
+- RF-38: Evitar catalogos duplicados.
 
-### Pendientes para cierre tecnico
+## Limitaciones conocidas
 
-- Autenticacion completa: RF-01 a RF-03.
-- Permisos por rol: RF-05, RF-25 y RF-42.
-- Asignacion de tecnico y transiciones de estado: RF-21 a RF-24, RF-45 y RF-46.
-- Seguimiento, solucion y cierre: RF-28, RF-30 a RF-32 y RF-34.
-- Interfaz web basica integrada: INT-01.
+- La autenticacion completa queda parcial/no implementada.
+- Los permisos por rol quedan documentados como pendiente.
+- La asignacion de tecnico y transiciones de estado quedan como mejora futura.
+- El seguimiento, solucion y cierre del ticket no forman parte de esta version candidata.
+- La interfaz web basica queda pendiente; la demostracion se realiza por consola.
+- No se incluyen adjuntos, dashboard, reportes, correo, chat ni app movil.
+
+## Mejoras futuras
+
+- Inicio/cierre de sesion.
+- Permisos por rol.
+- Asignacion de tickets a tecnico.
+- Estados del ticket: Nuevo, Asignado, En proceso, Resuelto, Cerrado.
+- Historial de cambios y comentarios.
+- Interfaz web para la demostracion final.
+- Reportes y metricas.
+
+## Evidencias incluidas
+
+- `evidencia_pruebas_finales_semana13.txt`
+- `evidencia_flujo_final_semana13.txt`
+- `evidencia_demo_main_semana13.txt`
+- `evidencia_git_status_semana13.txt`
+- `Entregable_Semana_13_Cierre_Tecnico.docx`
+- `Presentacion_Preliminar_Semana_14_Mesa_Ayuda.pptx`
+
+## Commit sugerido
+
+```bash
+git status
+git add .
+git commit -m "chore: cierre tecnico semana 13"
+```
+
+## Version visual candidata con Flask
+
+Para que la entrega ya se pueda mostrar como sistema web, se agrego una interfaz visual minimalista en Flask. Esta version no intenta cerrar todas las funciones de Semana 14; funciona como demo avanzada para presentar el flujo principal.
+
+### Instalar dependencia web
+
+```bash
+pip install -r requirements.txt
+```
+
+### Ejecutar la aplicacion web
+
+```bash
+python app.py
+```
+
+Despues abrir en el navegador:
+
+```text
+http://127.0.0.1:5000
+```
+
+### Pantallas disponibles
+
+- Dashboard: resumen de tickets, usuarios y catalogos.
+- Tickets: crear, listar, consultar, actualizar y eliminar tickets.
+- Usuarios: crear y listar usuarios para alimentar tickets.
+- Catalogos: crear y listar categorias/prioridades para alimentar tickets.
+
+### Alcance de la vista web
+
+La vista web cubre una demo CRUD minima y visual del sistema. Quedan fuera de esta version: login completo, permisos reales por rol, asignacion avanzada, reportes, adjuntos, chat y app movil.

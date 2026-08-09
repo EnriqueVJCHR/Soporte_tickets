@@ -1,0 +1,48 @@
+﻿ M README.md
+D  config/__pycache__/__init__.cpython-312.pyc
+D  config/__pycache__/database.cpython-312.pyc
+ M config/database.py
+ M data/mesa_ayuda.db
+ M main.py
+D  modules/__pycache__/__init__.cpython-312.pyc
+D  modules/catalogos/__pycache__/__init__.cpython-312.pyc
+D  modules/catalogos/__pycache__/repository.cpython-312.pyc
+D  modules/catalogos/__pycache__/service.cpython-312.pyc
+D  modules/catalogos/__pycache__/validators.cpython-312.pyc
+?? AVANCE_VISUAL_FLASK_SEMANA13.md
+?? CIERRE_TECNICO_SEMANA13.md
+?? COMMIT_SEMANA12.md
+?? COMMIT_SEMANA13.md
+?? Entregable_Semana_12_Mesa_de_Ayuda.docx
+?? Entregable_Semana_13_Cierre_Tecnico.docx
+?? Entregable_Semana_13_Cierre_Tecnico_Web.docx
+?? GUIA_DEMO_SEMANA13.md
+?? PROMPTS_OTRAS_IAS.md
+?? Presentacion_Preliminar_Semana_14_Mesa_Ayuda.pptx
+?? Presentacion_Preliminar_Semana_14_Mesa_Ayuda.pptx.inspect.ndjson
+?? app.py
+?? evidencia_demo_main_semana13.txt
+?? evidencia_error_depuracion_semana8.txt
+?? evidencia_flujo_final_semana13.txt
+?? evidencia_flujo_principal_semana12.txt
+?? evidencia_git_status_semana12.txt
+?? evidencia_git_status_semana13.txt
+?? evidencia_pruebas_finales_semana13.txt
+?? evidencia_pruebas_semana12.txt
+?? evidencia_pruebas_semana8.txt
+?? evidencia_pruebas_todos_los_modulos.txt
+?? evidencia_pruebas_usuarios.txt
+?? evidencias/
+?? modules/tickets/
+?? modules/usuarios/
+?? nota_responsables_semana8.txt
+?? requirements.txt
+?? static/
+?? templates/
+?? tests/evidencia_depuracion_comentada.py
+?? tests/prueba_manual_tickets.py
+?? tests/prueba_manual_usuarios.py
+?? tests/test_catalogos.py
+?? tests/test_flujo_principal_semana13.py
+?? tests/test_tickets.py
+?? tests/test_usuarios.py

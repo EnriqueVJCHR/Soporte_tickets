@@ -1,0 +1,53 @@
+﻿{% extends "base.html" %}
+{% block heading %}Tickets{% endblock %}
+{% block content %}
+<section class="grid-two">
+  <form class="panel form" method="post">
+    <h2>Nuevo ticket</h2>
+    <label>Solicitante
+      <select name="solicitante_id" required>
+        <option value="">Seleccionar</option>
+        {% for usuario in usuarios %}<option value="{{ usuario.id }}">{{ usuario.nombre }} - {{ usuario.rol }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Categoria
+      <select name="categoria_id" required>
+        <option value="">Seleccionar</option>
+        {% for item in categorias %}<option value="{{ item.id }}">{{ item.nombre }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Prioridad
+      <select name="prioridad_id" required>
+        <option value="">Seleccionar</option>
+        {% for item in prioridades %}<option value="{{ item.id }}">{{ item.nombre }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Descripcion
+      <textarea name="descripcion" rows="4" required placeholder="Describe la incidencia del equipo"></textarea>
+    </label>
+    <button class="button" type="submit">Guardar ticket</button>
+  </form>
+
+  <section class="panel">
+    <h2>Tickets registrados</h2>
+    <div class="table-wrap compact">
+      <table>
+        <thead><tr><th>Folio</th><th>Solicitante</th><th>Prioridad</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        {% for ticket in tickets %}
+          <tr>
+            <td>{{ ticket.folio }}</td>
+            <td>{{ ticket.solicitante }}</td>
+            <td>{{ ticket.prioridad }}</td>
+            <td><span class="badge">{{ ticket.estado }}</span></td>
+            <td><a class="link" href="{{ url_for('detalle_ticket', folio=ticket.folio) }}">Editar</a></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5" class="empty">Crea el primer ticket para iniciar la demo.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+{% endblock %}
